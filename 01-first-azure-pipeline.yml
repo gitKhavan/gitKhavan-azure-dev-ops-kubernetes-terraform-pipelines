@@ -3,26 +3,34 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-# Stages -> Jobs -> Tasks
+
+# Stages > Jobs > Tasks
 
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
 
-jobs:
+jobs: 
 - job: Job1
   steps:
   - script: echo Job1!
-    displayName: 'Run a one-line script'
+    displayName: "Run a one-line script"
 
   - script: |
       echo Add other tasks to build, test, and deploy your project.
       echo See https://aka.ms/yaml
-    displayName: 'Run a multi-line script'
+    displayName: "Run a multi-line script"
 
 - job: Job2
+  dependsOn: Job1
   steps:
-  - script: echo Job2
+  - script: echo Job2!
+    displayName: 'Run a one-line script'
+
+- job: Job3
+  dependsOn: Job2
+  steps:
+  - script: echo Job3!
     displayName: 'Run a one-line script'
