@@ -48,12 +48,11 @@ stages:
         artifactName: 'manifests'
         itemPattern: '**/*.yaml'
         targetPath: '$(System.ArtifactsDirectory)'
-    - task: KubernetesManifest@1
+    - task: Kubernetes@1
+      displayName: 'Deploy using kubectl'
       inputs:
-        action: 'deploy'
-        connectionType: 'kubernetesServiceConnection'
-        kubernetesServiceConnection: 'aws-kubernetes-cluster-service-connection'
-        namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
-        containers: khavan123/currency-exchange-devops:$(tag)
-        arguments: '--validate=false'
+       connectionType: 'kubernetesServiceConnection'
+       kubernetesServiceEndpoint: 'aws-kubernetes-cluster-service-connection'
+       namespace: 'default'
+       command: apply
+       arguments: '--validate=false -f $(System.ArtifactsDirectory)/configuration/kubernetes'
