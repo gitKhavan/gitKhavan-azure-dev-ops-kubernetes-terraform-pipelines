@@ -8,8 +8,7 @@ resources:
 - repo: self
 
 variables:
-  # tag: '$(Build.BuildId)'
-  tag: 28
+  tag: '$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -18,14 +17,14 @@ stages:
   - job: Build
     displayName: Build docker image and publish files
     steps:
-    # - task: Docker@2
-    #   displayName: Build an image
-    #   inputs:
-    #     containerRegistry: 'khavan123-docker-hub'
-    #     repository: 'khavan123/currency-exchange-devops'
-    #     command: 'buildAndPush'
-    #     Dockerfile: '**/Dockerfile'
-    #     tags: '$(tag)'
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        containerRegistry: 'khavan123-docker-hub'
+        repository: 'khavan123/currency-exchange-devops'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
 
     - task: CopyFiles@2
       inputs:
