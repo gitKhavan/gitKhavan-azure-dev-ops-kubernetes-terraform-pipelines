@@ -9,7 +9,7 @@ pool:
 
 variables:
   # tag: '$(Build.BuildId)'
-  tag: 48
+  tag: 539
 
 stages:
 - stage: Build
@@ -48,11 +48,11 @@ stages:
         artifactName: 'manifests'
         itemPattern: '**/*.yaml'
         targetPath: '$(System.ArtifactsDirectory)'
-    - task: Kubernetes@1
-      displayName: 'Deploy using kubectl'
+    - task: KubernetesManifest@1
       inputs:
-       connectionType: 'kubernetesServiceConnection'
-       kubernetesServiceEndpoint: 'aws-kubernetes-cluster-service-connection'
-       namespace: 'default'
-       command: apply
-       arguments: '--validate=false -f $(System.ArtifactsDirectory)/configuration/kubernetes'
+        action: 'deploy'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'aws-kubernetes-cluster-service-connection'
+        namespace: 'default'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+        containers: khavan123/currency-exchange-devops:$(tag)
