@@ -27,7 +27,7 @@ module "lfacademy-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "lfacademy-cluster"
   cluster_version = "1.28"
-  subnet_ids      = ["subnet-0565c72c8be2a4a50", "subnet-0e0be61b12e125be5"]
+  subnet_ids      = ["subnet-0b7fcb0d0bbeec676", "subnet-0f555e91b8f7eaadd"]
   vpc_id                         = aws_default_vpc.default.id
   cluster_endpoint_public_access = true
   eks_managed_node_groups = {
@@ -78,3 +78,5 @@ module "lfacademy-cluster" {
 provider "aws" {
   region  = "us-east-1"
 }
+
+# arn:aws:s3:::terraform-backend-state-khavan
